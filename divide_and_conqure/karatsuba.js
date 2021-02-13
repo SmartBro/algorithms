@@ -1,5 +1,6 @@
-const INPUT_X = '3141592653589793238462643383279502884197169399375105820974944592';
-const INPUT_Y = '2718281828459045235360287471352662497757247093699959574966967627';
+module.exports = {
+    multiply,
+};
 
 const split = (s) => {
     const half = Math.ceil(s.length / 2);
@@ -13,17 +14,16 @@ function multiply(x, y) {
     x = String(x);
     y = String(y);
     if (x.length === 1 || y.length === 1) {
-        return BigInt(x) * BigInt(y);
+        return String(BigInt(x) * BigInt(y));
     }
     const [ a, b ] = split(x);
     const [ c, d ] = split(y);
-    const ac = multiply(a, c);
-    const bd = multiply(b, d);
-    const abcd = multiply(BigInt(a) + BigInt(b), BigInt(c) + BigInt(d));
-    const adbc = abcd - ac - bd;
-    const halfX = x.length = Math.ceil(x.length / 2);
-    const halfY = x.length = Math.ceil(y.length / 2);
-    return BigInt(10 ** x.length) * ac + BigInt(10 ** halfX) * adbc + bd;
+    const p = BigInt(a) + BigInt(b);
+    const q = BigInt(c) + BigInt(d);
+    const ac = BigInt(multiply(a, c));
+    const bd = BigInt(multiply(b, d));
+    const pq = BigInt(multiply(p, q));
+    const adbc = pq - ac - bd;
+    const result = BigInt(10 ** x.length) * ac + BigInt(10 ** b.length) * adbc + bd;
+    return result.toString();
 }
-// multiply('1234', '456');
-console.log(multiply(INPUT_X, INPUT_Y), multiply(INPUT_Y, INPUT_X) == BigInt(INPUT_X) * BigInt(INPUT_Y));
