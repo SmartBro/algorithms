@@ -4,15 +4,22 @@ module.exports = {
 
 const split = (s) => {
     const half = Math.ceil(s.length / 2);
+    const left = s.substr(0, half);
+    const right = s.substr(half).padStart(left.length, '0');
+
     return [
-        s.substr(0, half),
-        s.substr(half),
+        left,
+        right,
     ];
 }
 
 function multiply(x, y) {
     x = String(x);
     y = String(y);
+    const n = Math.max(x.length, y.length);
+    const m = Math.round(n / 2);
+    x = x.padStart(n, '0');
+    y = y.padStart(n, '0');
     if (x.length === 1 || y.length === 1) {
         return String(BigInt(x) * BigInt(y));
     }
@@ -24,6 +31,6 @@ function multiply(x, y) {
     const bd = BigInt(multiply(b, d));
     const pq = BigInt(multiply(p, q));
     const adbc = pq - ac - bd;
-    const result = BigInt(10 ** x.length) * ac + BigInt(10 ** b.length) * adbc + bd;
+    const result = BigInt(10 ** (m * 2)) * ac + BigInt(10 ** m) * adbc + bd;
     return result.toString();
 }
