@@ -1,16 +1,13 @@
 const { it, expect } = require('@jest/globals');
-const { multiply, multiplyInternal } = require('./karatsuba');
+const { getTestCases } = require('../utils/read');
+const { multiply } = require('./karatsuba');
 
 describe('Karatsuba multiplication algorithm', () => {
-    it.each`
-        a         | b        | expected
-        ${'1'}    | ${'0'}   | ${'0'}
-        ${'1'}    | ${'1'}   | ${'1'}
-        ${'1'}    | ${'2'}   | ${'2'}
-        ${'3'}    | ${'2'}   | ${'6'}
-        ${'12'}   | ${'12'}  | ${'144'}
-        ${'1444'}  | ${'1444'} | ${'2085136'}
-    `('multiplies $a x $b', ({ a, b, expected }) => {
+    const testCases = getTestCases('course1/assignment1Multiplication');
+
+    it.each(testCases)('multiplies A*B', (input, output) => {
+        const [ a, b ] = input;
+        const [ expected ] = output;
         expect(multiply(a, b)).toEqual(expected);
     });
 
