@@ -5,7 +5,9 @@ const os = require('os');
 function read(input, type = String) {
     try {
         const data = fs.readFileSync(input, 'utf-8');
-        return data.split(os.EOL).map(type);
+        return data.split(os.EOL)
+            .filter((line) => line.trim().length)
+            .map(type);
     } catch(err) {
         console.error(`Can't read file ${path}`, err);
     }

@@ -1,4 +1,3 @@
-const { it, expect } = require('@jest/globals');
 const { getTestCases } = require('../utils/read');
 const { multiply } = require('./karatsuba');
 
