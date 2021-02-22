@@ -6,8 +6,8 @@ describe('QuickSort', () => {
 
     it.each(testCases)('should count comparisons', (input, output) => {
         const [ first, last, median ] = output;
-        expect(countComparisonsFirst(input)).toBe(first);
-        expect(countComparisonsLast(input)).toBe(last);
-        expect(countComparisonsMedian(input)).toBe(median);
+        expect(countComparisonsFirst([ ...input ])).toBe(first);
+        expect(countComparisonsLast([ ...input ])).toBe(last);
+        expect(countComparisonsMedian([ ...input ])).toBe(median);
     });
 });
